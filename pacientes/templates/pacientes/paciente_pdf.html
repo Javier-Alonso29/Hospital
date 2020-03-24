@@ -1,0 +1,53 @@
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Inria+Sans&display=swap');
+    h1{
+        color: #00a8cc;
+    }
+    table{
+        background-color: #fff;
+        text-align: left;
+        width: 90%;
+        border-collapse: collapse;
+    }
+    table th, td{
+        text-align: center;
+        font-size: 15px;
+        font-family: 'Inria Sans', sans-serif;
+    }
+    table thead{
+        background: #1eafed;
+        border-bottom: solid 5px #000000 ;
+        text-align: center;
+        color: #fff;
+    }
+
+    
+</style>
+<h1>Hospital Matasanos</h1>
+<br>
+<h2>Lista de pacientes</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido paterno</th>
+            <th>Apellido materno</th>
+            <th>Fecha de nacimiento</th>
+            <th>No. Seguro social</th>
+            <th>Tipo de sangre</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for paciente in object_list %}
+        <tr>
+            <td>{{paciente.nombre}}</td>
+            <td>{{paciente.primerApellido}}</td>
+            <td>{{paciente.segundoApellido}}</td>
+            <td>{{paciente.fecha_nac}}</td>
+            <td>{{paciente.numero_ss}}</td>
+            <td>{{paciente.tipo_sangre}}</td>
+           
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

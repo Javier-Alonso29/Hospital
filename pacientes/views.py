@@ -5,6 +5,8 @@ from .models import Paciente, Municipio, Estado
 from .forms import PacienteForm
 from django.urls import reverse_lazy
 from django.http import JsonResponse
+from django_weasyprint import WeasyTemplateResponseMixin
+from django.conf import settings
 
 
 class Lista(ListView):
@@ -36,3 +38,13 @@ def buscar_municipio(request):
         data = [{'id':mun.id,'nombre':mun.nombre} for mun in  municipios]
         return JsonResponse(data, safe=False)
     return JsonResponse({'error':'Parámetro inválido'}, safe=False)
+
+
+class VistaPdf(ListView):
+    model = Paciente
+    template_name = 'pacientes/paciente_pdf.html'
+    
+class ListaPdf(WeasyTemplateResponseMixin, VistaPdf):
+    passpdf_stylesheets = [ settings.STATICFILES_DIRS[0] ]
+    pdf_attachment = False
+    pdf_filename = 'pacientes.pdf'
