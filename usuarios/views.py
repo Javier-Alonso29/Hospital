@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import TemplateView
@@ -9,6 +9,7 @@ from .models import Usuario
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.mail import EmailMessage
+from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -71,15 +72,11 @@ class ActivarCuenta(TemplateView):
         if user is not None and token_activacion.check_token(user, token):
             user.is_active = True
             user.save()
-            mensaje='Cuanta activada, ingresar datos.'
-            return render(request, 'login.html',{'mensaje':mensaje})
+            messages.success(self.request, 'Cuenta activada, ingresa datos')
         else:
+            messages.error(self.request, 'Token invalido, contacta con el administrador')
 
-            mensaje = 'Token invalido, contacta al administrador'
-
-            return render(request, 'login.html',{'mensaje':mensaje})
-
-        #return self.render_to_string(context)
+        return redirect('usuarios:login')
         
 
 

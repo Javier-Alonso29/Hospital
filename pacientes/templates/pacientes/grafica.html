@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    Gráfica
+{% endblock titulo %}
+
+{% block contenido %}
+    <div id="grafica" style="min-width: 310px;height: 400px; margin: 0 auto;"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script> 
+    <script src="https://code.highcharts.com/modules/exporting.js"></script> 
+    <script src="https://code.highcharts.com/modules/exporting-data.js"></script> 
+
+
+    </script>
+    <script>
+        Highcharts.chart('grafica',{
+            lang:{
+                downloadCSV: 'Descarga CSV',
+                downloadJPEG: 'Descarga imagen JPEG',
+                downloadPDF: 'Descarga PDF',
+                downloadPNG: 'Descarga imagen PNG',
+                downloadSVG: 'Descarga en imagen de vectores',
+                viewFullscreen: 'Ver en pantalla completa',
+                printChart: 'Imprimir gráfica'
+            },
+            chart:{
+                type: 'column'
+            },
+            title: {
+                text: 'Gráfica de tipo de sangre'
+            },
+            subtitle: {
+                text: 'Cuantos pacientes por tipo de sangre'
+            },
+            xAxis:{
+                categories: ['Tipo']
+            },
+            yAxis:{
+                min:0,
+                title:{
+                    text: 'Numero de pacientes'
+                }
+            },
+            plotOptions:{
+                column:{
+                    pointPaddin: 0.2,
+                    borderWidth: 0,
+
+                }
+            },
+            series: {{datos|safe}}
+            
+        });
+    </script>
+
+
+</script>
+
+<br>
+<br>
+
+<div id="grafica2" style="min-width: 310px;height: 400px; margin: 0 auto;"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script> 
+    <script src="https://code.highcharts.com/modules/exporting.js"></script> 
+    <script src="https://code.highcharts.com/modules/exporting-data.js"></script> 
+<script>
+    Highcharts.chart('grafica2',{
+        lang:{
+            downloadCSV: 'Descarga CSV',
+            downloadJPEG: 'Descarga imagen JPEG',
+            downloadPDF: 'Descarga PDF',
+            downloadPNG: 'Descarga imagen PNG',
+            downloadSVG: 'Descarga en imagen de vectores',
+            viewFullscreen: 'Ver en pantalla completa',
+            printChart: 'Imprimir gráfica'
+        },
+        chart:{
+            type: 'column'
+        },
+        title: {
+            text: 'Gráfica de edad de pacientes'
+        },
+        subtitle: {
+            text: 'Cuantos pacientes por edad'
+        },
+        xAxis:{
+            categories: ['Edad']
+        },
+        yAxis:{
+            min:0,
+            title:{
+                text: 'Numero de pacientes'
+            }
+        },
+        plotOptions:{
+            column:{
+                pointPaddin: 0.2,
+                borderWidth: 0,
+
+            }
+        },
+        series: {{datos2|safe}}
+        
+    });
+</script>
+    
+{% endblock contenido %}

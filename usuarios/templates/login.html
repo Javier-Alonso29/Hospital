@@ -35,8 +35,12 @@
           </div>
       {% endif %}
 
-      {% if mensaje %}
-        {{mensaje}}
+      {% if messages %}
+        {% for men in messages %}
+          <div class="alert alert-{% if men.tags == 'error' %}warning {% else %}success{% endif %}">
+            {{men}}
+          </div>
+        {% endfor %}
       {% endif %}
       
       <form method="post">

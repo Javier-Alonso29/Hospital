@@ -1,32 +1,35 @@
-<style>
-    @import url('https://fonts.googleapis.com/css?family=Inria+Sans&display=swap');
-    h1{
-        color: #00a8cc;
-    }
-    table{
-        background-color: #fff;
-        text-align: left;
-        width: 90%;
-        border-collapse: collapse;
-    }
-    table th, td{
-        text-align: center;
-        font-size: 15px;
-        font-family: 'Inria Sans', sans-serif;
-    }
-    table thead{
-        background: #1eafed;
-        border-bottom: solid 5px #000000 ;
-        text-align: center;
-        color: #fff;
-    }
-
+{% load static %}
+<html>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Inria+Sans&display=swap');
+        h1{
+            color: #00a8cc;
+        }
+        table{
+            background-color: #fff;
+            text-align: left;
+            width: 90%;
+            border-collapse: collapse;
+        }
+        table th, td{
+            text-align: center;
+            font-size: 15px;
+            font-family: 'Inria Sans', sans-serif;
+        }
+        table thead{
+            background: #1eafed;
+            border-bottom: solid 5px #000000 ;
+            text-align: center;
+            color: #fff;
+        }
     
-</style>
-<h1>Hospital Matasanos</h1>
+    
+    </style>
+<body>
+    <h1>Hospital Matasanos</h1>
 <br>
 <h2>Lista de pacientes</h2>
-<table class="table table-bordered">
+<table>
     <thead>
         <tr>
             <th>Nombre</th>
@@ -51,3 +54,6 @@
         {% endfor %}
     </tbody>
 </table>
+
+</body>
+</html>

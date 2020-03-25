@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
 {% block titulo %}Lista de pacientes{% endblock titulo %}
-    
+
 {% block contenido %}
-<h1>Lista de pacientes</h1>
+<div class="contenedor">
+    <h1>Lista de pacientes</h1>
+    <a href="{% url 'pacientes:pdf' %}" class="btn btn-lg bg-success" role="button" aria-pressed="true">Generar PDF</a>
+</div>
+
+
 <table class="table table-bordered">
     <thead>
         <tr>
