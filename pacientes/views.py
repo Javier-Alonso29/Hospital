@@ -48,9 +48,25 @@ class VistaPdf(ListView):
     template_name = 'pacientes/paciente_pdf.html'
     
 class ListaPdf(WeasyTemplateResponseMixin, VistaPdf):
-    passpdf_stylesheets = [ settings.STATICFILES_DIRS[0] ]
+    passpdf_stylesheets = [ settings.STATICFILES_DIRS[0] + 'dist/css/misEstilos.css']
     pdf_attachment = False
-    pdf_filename = 'pacientes.pdf'
+    pdf_filename = 'Pacientes.pdf'
+
+class VistaPdfPaciente(ListView):
+    model = Paciente
+    template_name = 'pacientes/paciente_pdf_individual.html'
+
+    def get_queryset(self, **kwargs):
+        pk = self.kwargs.get('pk',None)
+        queryset = Paciente.objects.filter( id = pk)
+        return queryset
+    
+
+class PacientePdf(WeasyTemplateResponseMixin,VistaPdfPaciente):
+    passpdf_stylesheets = [ settings.STATICFILES_DIRS[0] + 'dist/css/misEstilos.css' ]
+    pdf_attachment = False
+    pdf_filname = 'Paciente.pdf'
+
 
 class Grafica(TemplateView):
     template_name = 'pacientes/grafica.html'

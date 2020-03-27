@@ -37,6 +37,9 @@
                 <a title="Elimina paciente" class="btn btn-danger" href="{% url 'pacientes:eliminar' paciente.id %}">
                     <i class="far fa-trash-alt"></i>
                 </a>
+                <a title="Generar pdf" href="{% url 'pacientes:pdf_paciente' paciente.id %}" class="btn btn-info">
+                    <i class="fas fa-file-pdf"></i>
+                </a>
             </td>
         </tr>
         {% endfor %}
