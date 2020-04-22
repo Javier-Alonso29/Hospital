@@ -45,5 +45,33 @@
         {% endfor %}
     </tbody>
 </table>
+
+<div class="pagination justify-content-center">
+    
+    <ul class="pagination">
+
+        <li class="page-item ">
+            <a href="?page=1" class="page-link">&laquo; Primero</a>
+        </li>
+
+        {% for i in page_obj.paginator.page_range %}
+
+            {% if page_obj.number == i  %}
+                <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+                </li>
+
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+
+        {% endfor %}
+
+        <li class="page-item ">
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">Ultimo &raquo;</a>
+        </li>
+
+    </ul>
+</div>
 {% endblock contenido %}
     

@@ -13,6 +13,7 @@ from datetime import date
 
 
 class Lista(ListView):
+    paginate_by = 5
     model = Paciente
 
 
