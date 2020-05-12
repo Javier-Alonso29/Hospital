@@ -194,7 +194,7 @@
                 
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{% url 'usuarios:perfil' user.pk %}" class="nav-link">
+                    <a href="{% url 'usuarios:perfil' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Perfil</p>
                     </a>
@@ -209,6 +209,7 @@
               </a>
               </li>
           
+          {% if perms.usuarios.permiso_administradoress %}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
@@ -219,12 +220,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{% url 'pacientes:lista' %}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Lista de pacientes</p>
-                </a>
-              </li>
+              
+                <li class="nav-item">
+                  <a href="{% url 'pacientes:lista' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Lista de pacientes</p>
+                  </a>
+                </li>
+
               <li class="nav-item">
                 <a href="{% url 'pacientes:nuevo' %}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -239,6 +242,31 @@
               </li>
             </ul>
           </li>
+          {% endif %}
+
+          
+          {% if perms.usuarios.permiso_gestion_permisos %}
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="fas fa-medal"></i>
+              <p>
+                    Usuarios
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              
+                <li class="nav-item">
+                  <a href="{% url 'usuarios:lista' %}" class="nav-link">
+                    <i class="fas fa-user-astronaut"></i>
+                    <p>Lista de usuarios</p>
+                  </a>
+                </li>
+            </ul>
+          </li>
+          {% endif %}
+            
+
           <li class="nav-header">EXAMPLES</li>
           <li class="nav-item">
             <a href="pages/calendar.html" class="nav-link">

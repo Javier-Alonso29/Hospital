@@ -1,4 +1,5 @@
 from django.db import models
+from .validators import nns_validador
 
 
 class Estado(models.Model):
@@ -23,7 +24,7 @@ class Paciente(models.Model):
     nombre = models.CharField(max_length=60)
     primerApellido = models.CharField('Apellido paterno',max_length=60)
     segundoApellido = models.CharField('Apellido materno', max_length=60, null=True, blank=True)
-    numero_ss = models.CharField('Número de Seguro Social',max_length=20)
+    numero_ss = models.CharField('Número de Seguro Social',max_length=20, validators=[nns_validador])
     fecha_nac = models.DateField('Fecha de nacimiento')
     tipo_sangre = models.CharField('Tipo de sangre', max_length=3, choices=TIPO_SANGRE)
     municipio = models.ForeignKey(Municipio, verbose_name='Municipio', on_delete=models.SET_NULL, null=True)

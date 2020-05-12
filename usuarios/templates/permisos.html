@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Lista permisos{% endblock titulo %}
+
+{% block contenido %}
+<div class="contenedor">
+    <h1>Permisos</h1>
+</div>
+
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <h4>Todos los permisos</h4>
+        <select select class="custom-select" multiple>
+            {% for permisosTotales in total_permisos %}
+                <option value="">{{   permisosTotales  }}</option>
+            {% endfor %}
+        </select>
+      </div>
+      <div class="col">
+        <h4>Permisos del usuario</h4>
+        <select class="custom-select" multiple>
+            
+            {% for permisosUsuario in object_list %}
+                <option value="">{{permisosUsuario}}</option>
+            {% endfor %}
+                
+        </select>
+      </div>
+    </div>
+</div>
+
+<br>
+<button type="button" class="btn btn-success btn-lg btn-block">Agrear permiso</button>
+<button type="button" class="btn btn-danger btn-lg btn-block">Eliminar permiso</button>
+
+
+
+
+
+
+{% endblock contenido %}

@@ -1,0 +1,65 @@
+
+
+{% extends 'base.html' %}
+
+{% block titulo %}Lista permisos{% endblock titulo %}
+
+{% block contenido %}
+<div class="contenedor">
+    <h1>Lista de usuarios</h1>
+</div>
+
+
+{% include './messages.html' %}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Nombre de usuario</th>
+            <th>Correo</th>
+            <th>Administrador</th>
+            <th>Usuario</th>
+            <th>Permisos</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in object_list %}
+        <tr>
+            <td>{{usuario.username}}</td>
+            <td>{{usuario.email}}</td>
+            <td>
+                <a title="Actualiza paciente" class="btn btn-success" href="{% url 'usuarios:nadmin' usuario.id %}">
+                    <i class="fas fa-check"></i>
+                </a>
+
+                <a title="Actualiza paciente" class="btn btn-danger" href="{% url 'usuarios:deleteAdmin' usuario.id %}">
+                    <i class="fas fa-times"></i>
+                </a>
+            </td>
+            <td>
+                <a title="Actualiza paciente" class="btn btn-success" href="{% url 'usuarios:addUser' usuario.id %}">
+                    <i class="fas fa-check"></i>
+                </a>
+
+                <a title="Actualiza paciente" class="btn btn-danger" href="{% url 'usuarios:deleteUser' usuario.id %}">
+                    <i class="fas fa-times"></i>
+                </a>
+            </td>
+            <td><a class="btn btn-dark" href="{% url 'usuarios:permisos' usuario.id %}" role="button">Cambiar Permisos</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    setTimeout(function(){
+        if($('#msg').length > 0){
+            $('#msg').remove()
+        }
+    },4000)
+</script>
+
+
+{% endblock contenido %}
+
+    

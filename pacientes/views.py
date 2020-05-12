@@ -10,27 +10,28 @@ from django.conf import settings
 from django.views.generic import TemplateView
 from django.db.models import Count
 from datetime import date
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin, AccessMixin
 
 
-class Lista(ListView):
+class Lista(LoginRequiredMixin,PermissionRequiredMixin,ListView):
+    permission_required = 'usuarios.permisos_administradoress'
     paginate_by = 5
     model = Paciente
 
-
-class Nuevo(CreateView):
+class Nuevo(LoginRequiredMixin,CreateView):
     model = Paciente
     form_class = PacienteForm
     
     success_url = reverse_lazy('pacientes:lista')
 
-class Editar(UpdateView):
+class Editar(LoginRequiredMixin,UpdateView):
     model = Paciente
     form_class = PacienteForm
     extra_context = {'editar':True}
 
     success_url = reverse_lazy('pacientes:lista')
 
-class Eliminar(DeleteView):
+class Eliminar(LoginRequiredMixin,DeleteView):
     model = Paciente
     success_url = reverse_lazy('pacientes:lista')
 
@@ -44,7 +45,7 @@ def buscar_municipio(request):
     return JsonResponse({'error':'Parámetro inválido'}, safe=False)
 
 
-class VistaPdf(ListView):
+class VistaPdf(LoginRequiredMixin,ListView):
     model = Paciente
     template_name = 'pacientes/paciente_pdf.html'
     
@@ -60,6 +61,7 @@ class VistaPdfPaciente(ListView):
     def get_queryset(self, **kwargs):
         pk = self.kwargs.get('pk',None)
         queryset = Paciente.objects.filter( id = pk)
+        print(queryset)
         return queryset
     
 
@@ -69,7 +71,7 @@ class PacientePdf(WeasyTemplateResponseMixin,VistaPdfPaciente):
     pdf_filname = 'Paciente.pdf'
 
 
-class Grafica(TemplateView):
+class Grafica(LoginRequiredMixin,TemplateView):
     template_name = 'pacientes/grafica.html'
     pacientes_tipo = Paciente.objects.all().values('tipo_sangre').annotate(cuantos=Count('tipo_sangre'))
     tipos = Paciente.objects.all()
