@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pacientes',
     'usuarios',
+    'articulos',
 ]
 
 MIDDLEWARE = [
@@ -59,6 +60,10 @@ TEMPLATES = [
                 'pacientes.context_processors.pacientes_contador',
                 'usuarios.context_processors.total_permisos',
             ],
+            'libraries':{
+            'tags': 'pacientes.templatetags.tags',
+
+            }
         },
     },
 ]
@@ -148,3 +153,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+SESSION_COOKIE_AGE = 600
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

@@ -1,0 +1,121 @@
+<style>
+    #presio{
+        color: red;
+    }
+    #titulo{
+        color: black;
+        font-weight: bold;
+    }
+</style>
+
+
+{% extends 'base.html' %}
+
+{% block titulo %}Lista de articulos{% endblock titulo %}
+
+{% block contenido %}
+<div class="contenedor">
+    <h1>Lista de articulos</h1>
+</div>
+
+{% include './messages.html' %}
+
+<div class="album py-5 bg-ligth">
+    <div class="container">
+        <div class="row">
+
+        {% for articulo in object_list %}
+            <div class="col-md-4">
+
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{  MEDIA_URL }}/{{ articulo.imagen }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 id="titulo">{{ articulo.nombre}}</h5>
+                      <p class="card-text">{{ articulo.descripcion }}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">Stock: {{articulo.stock}}</li>
+                      <li class="list-group-item">Precio: <h5 id="presio">{{ articulo.precio }}</h5> </li>
+                      
+                      <li class="list-group-item"> Cantidad:
+                            <div class="form-group">
+
+                                <form action="{% url 'articulos:comprar' %}" method="POST">
+                                    <input type="text" name="id" value="{{ articulo.id }}" hidden > 
+                                    {% csrf_token %}
+                                    <select class="form-control" name="cantidad" >
+                                        {% with ''|center:articulo.stock as range %}
+                                        {% for _ in range %}
+                                            <option name="opcion">{{ forloop.counter }}</option>
+                                        {% endfor %}.0
+                                        {% endwith %}
+                                    </select>
+
+                                    <div class="card-body text-center">
+                        
+                                        {% if articulo.stock > 0 %}
+                                            <div class="btn btn-success">
+                                                <i class="fas fa-cart-plus">
+                                                    <input class="btn" type="submit" value="Agregar al carrito">
+                                                </i>
+                                            </div>
+                                        {% else %}
+                                            
+                                            <i class="fas fa-times-circle"></i> Sin existencias
+                                            
+                                        {% endif %}
+                                            
+                                    </div>
+
+                                </form>
+                            </div>
+                      </li>
+                    </ul>
+                    
+                  </div>
+
+            </div>
+        {% endfor %}
+
+        </div>
+    </div>
+</div>
+    
+
+<div class="pagination justify-content-center">
+    
+    <ul class="pagination">
+
+        <li class="page-item ">
+            <a href="?page=1" class="page-link">&laquo; Primero</a>
+        </li>
+
+        {% for i in page_obj.paginator.page_range %}
+
+            {% if page_obj.number == i  %}
+                <li class="page-item active">
+                    <a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a>
+                </li>
+
+            {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+
+        {% endfor %}
+
+        <li class="page-item ">
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">Ultimo &raquo;</a>
+        </li>
+
+    </ul>
+</div>
+
+<script>
+    setTimeout(function(){
+        if($('#msg').length > 0){
+            $('#msg').remove()
+        }
+    },4000)
+</script>
+{% endblock contenido %}
+    

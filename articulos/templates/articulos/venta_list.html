@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Lista de articulos{% endblock titulo %}
+
+{% block contenido %}
+<div class="contenedor">
+    <h1>Tu carrito</h1>
+    
+</div>
+
+
+
+<div class="container">
+       <div class="row">
+           <div class="col-10">
+                <a href=" {% url 'articulos:lista' %}" class="btn btn-dark"><i class="fas fa-long-arrow-alt-left"></i> Articulos </a>
+            
+                <a href="{% url 'articulos:confirmaCompra' user.pk %}" class="btn btn-success"> <i class="fab fa-paypal"></i> Comprar</a>
+           </div>
+
+           <div class="col-2">
+                <a href="{% url 'articulos:cancelarCompra' %}" class="btn btn-light"><i class="fas fa-ban"></i>  Cancelar</a>
+           </div>
+            
+        
+       </div>
+</div>
+<div class="table-responsive">
+
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>Presio</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for valor in object_list %}
+            <tr>
+                <td><img src="{{  MEDIA_URL }}/{{ valor.0.imagen }}" ></td>
+                <td>{{ valor.0.nombre }}</td>
+                <td>{{ valor.0.descripcion }}</td>
+                <td>{{ valor.1 }}</td>
+                <td>{{ valor.0.precio }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td scope="row" colspan="5" class="table-dark">Total: ${{ request.session.total|floatformat:2 }} mx</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+<a href="{% url 'articulos:confirmaCompra' user.pk %}" class="btn btn-success btn-lg btn-block">Comprar ahora</a>
+
+
+{% endblock contenido %}
+    
