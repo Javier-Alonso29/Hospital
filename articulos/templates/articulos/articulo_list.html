@@ -68,8 +68,18 @@
                                     </div>
 
                                 </form>
+                                
                             </div>
                       </li>
+                      
+                      {% if perms.usuarios.permiso_administradoress %}
+                        <li class="list-group-item text-center">
+                            <a class="btn btn-danger" href="javascript:eliminarModal( '{% url 'articulos:eliminar' articulo.id %}' )">
+                                <i class="far fa-trash-alt"> Eliminar articulo</i>
+                            </a>
+                        </li>
+                      {% endif %}
+                          
                     </ul>
                     
                   </div>
@@ -80,6 +90,32 @@
         </div>
     </div>
 </div>
+
+<!-- Button trigger modal -->
+<button hidden id="btnModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Elimina articulo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ¿Estas seguro de eliminar el articulo? 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><a class="btn btn-secondary" href=""> Cancelar</a></button>
+          <button type="button" class="btn btn-danger"><a class="btn btn-danger" id="confirmaEliminacion" href=""> Eliminar</a></button>
+        </div>
+      </div>
+    </div>
+  </div>
     
 
 <div class="pagination justify-content-center">
@@ -115,7 +151,16 @@
         if($('#msg').length > 0){
             $('#msg').remove()
         }
-    },4000)
+    },4000);
+
+    function eliminarModal(url) {
+        document.querySelector("#confirmaEliminacion").setAttribute('href',url);
+        document.querySelector("#btnModal").click()
+    }
+
+
 </script>
+
+
+
 {% endblock contenido %}
-    

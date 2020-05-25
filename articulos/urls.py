@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Lista, comprar, confirmaCompra, cancelarCompra, VerCarrito, HistorialVenta
+from .views import Lista, comprar, confirmaCompra, cancelarCompra, VerCarrito, HistorialVenta, eliminar
 from . import views
 
 app_name = 'articulos'
@@ -11,4 +11,5 @@ urlpatterns = [
     path('confirmaCompra/<int:pk>',confirmaCompra,name='confirmaCompra'),
     path('cancelarCompra/',cancelarCompra, name='cancelarCompra'),
     path('historialVentas', HistorialVenta.as_view(), name='historialVenta'),
+    path('eliminar/<int:pk>', eliminar, name='eliminar'),
 ]

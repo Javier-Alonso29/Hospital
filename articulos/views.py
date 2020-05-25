@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin, AccessMixin
 from django.views.generic.list import ListView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DeleteView
 from .models import Articulo, Venta, DetalleVenta
 from usuarios.models import Usuario
 from django import template
@@ -110,3 +110,11 @@ def cancelarCompra(request):
 
 class HistorialVenta(LoginRequiredMixin,ListView):
     model = DetalleVenta
+
+
+def eliminar(request, pk):
+    val = int(pk)
+    obj = get_object_or_404(Articulo, id = val)
+    print(obj)
+    obj.delete()
+    return redirect('articulos:lista')
